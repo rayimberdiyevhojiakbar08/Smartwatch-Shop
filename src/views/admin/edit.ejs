@@ -1,0 +1,29 @@
+<div class="card container mt-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center" style="background-color: #00ffff;">Add SmartWatch<i class="bi bi-upload"></i></li>
+    <form action="/edit_product/<%= data._id %>" method="post">
+      <div class="mb-3">
+        <label for="title" class="form-label container">Name</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>">
+      </div>
+      <div class="mb-3">
+        <label for="cost" class="form-label container">Cost</label>
+        <input type="number" class="form-control" id="cost" name="cost" value="<%= data.cost %>">
+      </div>
+      <div class="mb-3">
+        <label for="buy_cost" class="form-label container">Buy Cost</label>
+        <input type="number" class="form-control" id="buy_cost" name="buy_cost" value="<%= data.buy_cost %>">
+      </div>
+
+      <div class="mb-3">
+        <label for="color" class="form-label container">Color</label>
+        <input type="text" class="form-control" id="color" name="color" value="<%= data.color %>">
+      </div>
+      <div class="mb-3">
+        <label for="text" class="form-label container">Write info</label>
+        <textarea class="form-control" id="text" rows="3" name="text" value="<%= data.text %>"></textarea>
+      </div>
+      <button type="submit" class="btn btn-info btn-sm text-uppercase mb-3">Upload</button>
+</form>
+</ul>
+</div>

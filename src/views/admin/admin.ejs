@@ -1,0 +1,272 @@
+<%- include('../partial/navbar') %>
+<h1 class="text-center mt-3 times">Admin Dashboard</h1>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">All Users Count</h6>
+                    <h2 class="text-right"><i class="fa fa-users f-left"></i><span><%= userdata.length %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Today added Users</h6>
+                    <h2 class="text-right"><i class="fa fa-users f-left"></i><span><%= todayauth.length %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">All Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-shopping-cart f-left"></i><span><%= order.length %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Today Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-shopping-cart f-left"></i><span><%= todayOrders.length %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">All Profit</h6>
+                    <h2 class="text-right"><i class="fa fa-money f-left"></i><span>$<%= totalSum %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Today Profit</h6>
+                    <h2 class="text-right"><i class="fa fa-money f-left"></i><span>$<%= totalSumToday %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-red order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Delivered (false)</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span><%= deliverFalse.length %></span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-red order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Delivered (true)</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span><%= deliverTrue.length %></span></h2>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+<h1 class="text-center mt-3 times">Add Product</h1>
+
+<div class="card container mt-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center" style="background-color: #00ffff;">Add SmartWatch</li>
+    <form action="/new" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="img" class="form-label container"></label>
+        <input type="file"  class="form-control" id="img" required name="img">
+      </div>
+      <div class="mb-3">
+        <label for="title" class="form-label container">Name</label>
+        <input type="text" class="form-control" id="title" required name="title">
+      </div>
+      <div class="mb-3">
+        <label for="cost" class="form-label container">Cost</label>
+        <input type="number" class="form-control" id="cost" required name="cost">
+      </div>
+
+      <div class="mb-3">
+        <label for="buy_cost" class="form-label container">Buy Cost</label>
+        <input type="number" class="form-control" id="buy_cost" required name="buy_cost">
+      </div>
+      <div class="mb-3">
+        <label for="color" class="form-label container">Color</label>
+        <input type="text" class="form-control" id="color" required name="color">
+      </div>
+      <div class="mb-3">
+        <label for="text" class="form-label container">Write info</label>
+        <textarea class="form-control" id="text" rows="3" required name="text"></textarea>
+      </div>
+      <button type="submit" class="btn btn-info btn-sm text-uppercase mb-3">Upload</button>
+</form>
+</ul>
+</div>
+
+<h1 class="text-center mt-3 times">Products <%= data.length %></h1>
+
+           <Shop Product Start -->
+           <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                <% data.reverse().forEach(item => { %>
+                <div class="col-lg-4 col-md-6 col-sm-6 pb-1" style="margin-left: 0%;">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <a href="/show/<%= item._id %>"><img class="img-fluid w-100" src="/image/<%= item.img %>" alt="*_*"></a>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="/show/<%= item._id %>"><%= item.title %></a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$<%= item.buy_cost %></h5><h6 class="text-muted ml-2"><del>$<%= item.cost %></del></h6><br>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5><a href="/edit/<%= item._id %>">Edit</a></h5>
+                                <h5 class="ml-4"><a href="/delete/<%= item._id %>">Delete</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>                        
+                <% }) %>
+
+            </div>
+        </div>
+
+<h1 class="text-center mt-3 times">Orders</h1>
+
+<table class="table table-hover margin container">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Firs and Last Name</th>
+        <th scope="col">Country, State, City, Zip Code</th>
+        <th scope="col">Products</th>
+        <th scope="col">Delivered</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% order.reverse().forEach((item, index) => { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <th scope="row"><%= item.name %> <%= item.last_name %></th>
+        <td><%= item.country %>, <%= item.state %>, <%= item.city %>, <%= item.zip_code %></td>
+        <td><%= item.products %></td>
+        <td><%= item.deliver %></td>
+      </tr>
+    <% }) %>
+
+    </tbody>
+  </table>
+
+<h1 class="text-center mt-3 times">Check by code</h1>
+
+<div class="col-lg-4 col-6" style="margin-left: 35%;">
+    <form  id="filterForm">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by order code" id="code">
+            <div class="input-group-append">
+                <button type="submit" class="input-group-text bg-transparent text-primary"><span>
+                    <i class="fa fa-search"></i>
+                </span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="bg-light p-4 mb-30 text-center container">
+    <div id="resultContainer"><h6></h6></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  
+<script>
+  document.getElementById('filterForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const code = document.getElementById('code').value;
+  const resultContainer = document.getElementById('resultContainer');
+
+  axios.get('/search_by_deliver_code', {
+    params: {
+      code: code,
+    }
+  })
+  
+    .then(function(response) {
+      resultContainer.innerHTML = '';
+      const products = response.data;
+      function generateProductHTML(order) {
+        return `
+            <div class="order">           
+            <div class="info">
+                <h5>${order.name}, ${order.last_name}</h5>
+                <p class="cost">${order.total}, ${order.country}, ${order.state}, ${order.city}, ${order.zip_code}</p>
+                <p>Deliver: ${order.deliver} </p>
+                <p>
+                <a href="/delivered_true/${order._id}">True</a>
+                </p>
+            </div>
+            </div>
+        `;
+        }
+      products.forEach(function(order) {
+        const productHTML = generateProductHTML(order);
+        resultContainer.insertAdjacentHTML('beforeend', productHTML);
+      });
+    })
+    .catch(function(error) {
+      console.error('Error fetching data', error);
+    });
+});
+</script>
+
+<style>
+.times {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#24e6bf,#39e9c6);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+.bg-c-red {
+    background: linear-gradient(45deg,#dc3737,#df1055);
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+</style>

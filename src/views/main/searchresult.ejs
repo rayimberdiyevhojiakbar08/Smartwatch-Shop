@@ -1,0 +1,96 @@
+<%- include('../partial/navbar') %>
+
+
+<!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <a class="breadcrumb-item text-dark" href="/cart">Shopping Cart</a>
+                    <span class="breadcrumb-item active">Shop List</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                <!-- Price Start -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by cost and color</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form id="filterForm">
+                        <div class="col-md-6 form-group">
+                        <label for="color">Color:</label>
+                        <select id="color" name="color" class="custom-select">
+                          <option value="">All</option>
+                          <option value="Black">Black</option>
+                          <option value="White">White</option>
+                          <option value="Brown">Brown</option>
+                          <option value="Gray">Gray</option>
+                        </select>
+                        </div>
+
+                        <br>
+                        <div class="col-md-6 form-group" style="margin-top: -10%;">
+                            <label for="minCost">Min Cost:</label>
+                            <input class="form-control" type="text" id="minCost" name="minCost" placeholder="$100">
+                        </div>
+                        <br>
+                        <div class="col-md-6 form-group" style="margin-top: -10%;">
+                            <label for="maxCost">Max Cost:</label>
+                            <input class="form-control" type="text" id="maxCost" name="maxCost" placeholder="$200">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-2" value="Filter">Filter</button>
+                      </form>
+                </div>
+                <!-- Price End -->
+                
+                <!-- Color Start -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter results</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <div id="resultContainer"><h6></h6></div>
+                </div>
+                <!-- Color End -->   
+            </div>
+            <!-- Shop Sidebar End -->
+            <% if(data === 0) { %>
+                <h1 class="text-center">Not Found</h1>
+            <% }else { %>
+                <div class="col-lg-9 col-md-8">
+                    <div class="row pb-3">
+                        <% data.forEach(item => { %>
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">   
+                                    <a href="/show/<%= item.id %>"><img class="img-fluid w-100" src="/image/<%= item.img %>" alt="*_*"></a>
+                                </div>
+                                <div class="text-center py-4">
+                                    <a class="h6 text-decoration-none text-truncate" href="/show/<%= item.id %>"><%= item.title %></a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5>$<%= item.buy_cost %></h5><h6 class="text-muted ml-2"><del>$<%= item.cost %></del></h6>
+                                    </div>  
+                                    <div>
+                                        <button class="btn btn-outline-dark btn-square add-to-cart" style="margin-left: 80%;" data-id="<%= item._id %>"><i class="fa fa-shopping-cart"></i></button>
+                                    </div>                     
+                                </div>
+                            </div>
+                        </div>                        
+                        <% }) %>
+                    </div>
+                </div>
+            <% }  %>
+            <!-- Shop Product Start -->
+
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  
+
+<%- include('../partial/footer') %>

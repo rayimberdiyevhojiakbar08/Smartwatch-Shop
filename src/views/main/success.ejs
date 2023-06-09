@@ -1,0 +1,63 @@
+
+    <style>
+      body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+      }
+        h1 {
+          color: #88B04B;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        color: #9ABC66;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+    </style>
+
+<script>
+  // JavaScript yordamida countdown
+  function countdown() {
+    var seconds = 10;
+    var countdownElement = document.getElementById("countdown");
+
+    var countdownInterval = setInterval(function() {
+      countdownElement.innerText = seconds;
+      seconds--;
+
+      if (seconds < 0) {
+        clearInterval(countdownInterval);
+        location.href = "/"; // O'zgartiring: Boshqa sahifa URL manzilini shu yerga yozing
+      }
+    }, 1000); // Har bir sekundda yangilanadi
+  }
+</script>
+      <body onload="countdown()">
+      <div class="card">
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark">✓</i>
+      </div>
+        <h1>Success</h1> 
+        <p>we will deliver your order within 48 hours!<br/><p> Write down or take screenshot 10seconds verify code:</p><br><p><%= code %></p><br><p>Seconds: <span id="countdown"></span></p><br><p><a href="/">Home</a></p>
+      </div>
+    </body>
+

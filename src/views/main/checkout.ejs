@@ -1,0 +1,123 @@
+<%- include('../partial/navbar') %>
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <a class="breadcrumb-item text-dark" href="/cart">Shopping Cart</a>
+                    <span class="breadcrumb-item active">Checkout Order</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <form id="checkout_form" method="post" action="/create_order">
+                    <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="name">First Name</label>
+                                <input class="form-control" type="text" placeholder="John" name="name" id="name" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="last_name">Last Name</label>
+                                <input class="form-control" type="text" placeholder="Doe" name="last_name" id="last_name" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="email">E-mail</label>
+                                <input class="form-control" type="text" placeholder="example@email.com" name="email" id="email" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="tel_number">Phone Number</label>
+                                <input class="form-control" type="text" placeholder="+1 508 266 9004" name="tel_number" id="tel_number" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="country">Color:</label>
+                                <select id="country" name="country" class="custom-select">
+                                <option value="">Selsect Country</option>
+                                <option value="United States">United States</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Russia">Russia</option>
+                        </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="state">State</label>
+                                <input class="form-control" type="text" placeholder="New York" name="state" id="state" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="city">City</label>
+                                <input class="form-control" type="text" placeholder="New York" name="city" id="city" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="zip_code">ZIP Code</label>
+                                <input class="form-control" type="text" placeholder="123" name="zip_code" id="zip_code" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+                    <div class="bg-light p-30 mb-5">
+                        <div class="border-bottom">
+                            <h6 class="mb-3">Products Count: <%= count_of_items %></h6><a href="/cart">Go to cart</a>
+                        </div>
+                        <div class="border-bottom pt-3 pb-2">
+                            <div class="border-bottom">
+                                <h6 class="mb-3">Products</h6>
+                            <% cart.reverse().forEach(item => { %>
+                                <div class="d-flex justify-content-between">
+                                    <p><%= item.data.title %> x <%= item.quantity %></p>
+                                    <input type="hidden" value="Name:<%= item.data.title %>, Quantity:<%= item.quantity%>, Cost:$<%= item.data.buy_cost %>;" name="products" id="products">
+                                    <p>$<%= item.data.buy_cost %></p>
+                                    <% summaCost += item.data.buy_cost * item.quantity %> 
+                                </div>
+                            <% }) %>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium mt-3">Shipping:</h6>
+                                <h6 class="font-weight-medium mt-3">$5</h6>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5>Total:</h5>
+                                <h5>$<%= summaCost + 5 %></h5>
+                                <input type="hidden" value="$<%= summaCost + 5 %>" name="total" id="total">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
+                        <div class="bg-light p-30">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="paypal" value="paypal" required>
+                                    <label class="custom-control-label" for="paypal">Paypal</label>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="isreceived" value="when the order is received" required>
+                                    <label class="custom-control-label" for="isreceived">when the order is received</label>
+                                </div>
+                            </div>
+                            <input type="hidden" name="deliver" id="deliver" value="false">
+                            <input type="hidden" name="code" id="code" value="<%= deliver_code %>">
+                            <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout End -->
+<%- include('../partial/footer') %>
