@@ -35,7 +35,7 @@
                     <tbody class="align-middle">
                         <% cart.reverse().forEach(item => { %>
                             <tr class="cart-item"> 
-                                <td class="align-middle"><img src="/image/<%= item.data.img %>" alt="..." style="width: 50px;"><a href="/show/<%= item.data._id %>"><%= item.data.title %></a> </td>
+                                <td class="align-middle"><img src="/image/<%= item.data.img %>" alt="..." style="width: 50px;"><a href="/show/<%= item.data._id %>" class="ml-2"><%= item.data.title %></a> </td>
                                 <td class="align-middle price buy_cost">$<%= item.data.buy_cost  %></td>
                                 <td class="align-middle quantity"><%= item.quantity %></td>
                                     <% summaCost += item.data.buy_cost * item.quantity %> 
